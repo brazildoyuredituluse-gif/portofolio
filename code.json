@@ -1,0 +1,50 @@
+[
+  {
+    "id": "$rojak.education.2026-01-23-17:29:15.702",
+    "title": "Oxford ",
+    "text": "Oxford university by Gemini ",
+    "author": "Rojak",
+    "meta": {
+      "pca": {
+        "version": "4.4.2"
+      }
+    },
+    "frames": [
+      {
+        "bmp": "Tak berjudul50_20260123172747.png"
+      }
+    ],
+    "price": 1000,
+    "build time": 0,
+    "provide aspect education low": 100000,
+    "provide aspect education high": 100000,
+    "provide aspect health care": 1000000000,
+    "provide aspect body disposal": 10000,
+    "aspect education low capacity": 10000,
+    "aspect education high capacity": 10000,
+    "aspect health care capacity": 10000,
+    "aspect body disposal capacity": 10000,
+    "width": 8,
+    "height": 8,
+    "needs land": true,
+    "auto build": true,
+    "type": "education"
+  },
+  {
+    "id": "$rojak.animation.2026-01-23-17:50:31.896",
+    "author": "Rojak",
+    "meta": {
+      "pca": {
+        "version": "4.4.2"
+      }
+    },
+    "frames": [
+      {
+        "bmp": "Tak berjudul50_20260123174854.png"
+      }
+    ],
+    "light": true,
+    "light switching": true,
+    "type": "animation"
+  }
+]
