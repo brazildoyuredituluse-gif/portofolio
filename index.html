@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Muhammad Fikri – Web Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --yellow:#FFD000;--pink:#FF1F8E;--green:#00E600;
+  --blue:#3B82F6;--purple:#7C3AED;--black:#0A0A0A;--white:#FFFFFF;
+  --border:3px solid #0A0A0A;--shadow:5px 5px 0 #0A0A0A;--shadow-lg:8px 8px 0 #0A0A0A;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#f5f5f5;color:var(--black);overflow-x:hidden;}
+
+/* NAV */
+nav{
+  position:sticky;top:0;z-index:9999;
+  background:var(--white);border-bottom:var(--border);
+  padding:0 16px 0 20px;height:68px;
+  display:flex;align-items:center;gap:0;
+  overflow:hidden;
+}
+.logo{
+  font-family:'Bebas Neue',cursive;font-size:1.65rem;letter-spacing:1px;
+  color:var(--black);text-decoration:none;white-space:nowrap;margin-right:16px;flex-shrink:0;
+}
+.logo span{background:var(--yellow);border:2px solid var(--black);padding:2px 8px;margin-left:4px;}
+.nav-scroll{
+  flex:1;overflow-x:auto;overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.nav-scroll::-webkit-scrollbar{display:none;}
+.nav-links{
+  display:flex;align-items:center;gap:2px;list-style:none;
+  flex-wrap:nowrap;width:max-content;padding:0 4px;
+}
+.nav-links li a{
+  display:block;text-decoration:none;color:var(--black);font-weight:600;font-size:0.85rem;
+  padding:6px 12px;border:2px solid transparent;border-radius:0;
+  transition:all .18s;white-space:nowrap;cursor:pointer;
+}
+.nav-links li a:hover{color:var(--pink);border-color:var(--pink);}
+.nav-links li a.active{background:var(--black);color:var(--yellow);border-color:var(--black);}
+.nav-right{flex-shrink:0;padding-left:10px;}
+.lang-btn{
+  background:var(--purple);color:var(--white);
+  border:var(--border);padding:7px 16px;
+  font-weight:700;font-size:0.88rem;cursor:pointer;
+  box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s;
+}
+.lang-btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 #0a0a0a;}
+
+/* PAGES */
+.page{display:none;min-height:calc(100vh - 68px);}
+.page.active{display:block;}
+
+/* BUTTONS */
+.btn{
+  padding:14px 30px;font-weight:700;font-size:0.92rem;
+  border:var(--border);cursor:pointer;text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;
+  box-shadow:var(--shadow-lg);transition:transform .15s,box-shadow .15s;
+  text-transform:uppercase;letter-spacing:1px;
+}
+.btn:hover{transform:translate(-3px,-3px);box-shadow:11px 11px 0 #0a0a0a;}
+.btn-blue  {background:var(--blue); color:var(--white);}
+.btn-green {background:var(--green);color:var(--black);}
+.btn-pink  {background:var(--pink); color:var(--white);}
+.btn-yellow{background:var(--yellow);color:var(--black);}
+.btn-white {background:var(--white);color:var(--black);}
+.btn-black {background:var(--black);color:var(--yellow);}
+
+/* SECTION COMMON */
+.pg{padding:68px 40px;}
+.stw{display:flex;justify-content:center;margin-bottom:54px;}
+.st{
+  font-family:'Bebas Neue',cursive;
+  font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:3px;
+  padding:12px 38px;border:4px solid var(--black);box-shadow:var(--shadow-lg);
+}
+.t-yellow{background:var(--yellow);}
+.t-pink{background:var(--pink);color:var(--white);}
+.t-green{background:var(--green);}
+.t-blue{background:var(--blue);color:var(--white);}
+.t-white{background:var(--white);}
+
+/* ═══ HOME ═══ */
+#page-home{
+  background:var(--yellow);
+}
+#page-home::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,0,0,.05) 40px),
+    repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,0,0,.05) 40px);
+}
+.h-hello{
+  font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:700;
+  letter-spacing:5px;text-transform:uppercase;position:relative;
+  animation:fadeUp .5s ease both;
+}
+.h-name-box{
+  position:relative;margin:18px 0;background:var(--white);
+  border:4px solid var(--black);box-shadow:var(--shadow-lg);
+  padding:16px 50px;transform:rotate(-1.2deg);
+  animation:fadeUp .5s .13s ease both;
+}
+.h-name-box::before,.h-name-box::after{
+  content:'•';position:absolute;top:50%;transform:translateY(-50%);
+  font-size:1.5rem;color:var(--black);
+}
+.h-name-box::before{left:14px;}.h-name-box::after{right:14px;}
+.h-name{
+  font-family:'Bebas Neue',cursive;
+  font-size:clamp(2.8rem,7.5vw,5.8rem);letter-spacing:4px;line-height:1;
+}
+.h-tags{
+  display:flex;gap:10px;justify-content:center;flex-wrap:wrap;
+  margin-top:14px;position:relative;animation:fadeUp .5s .24s ease both;
+}
+.h-tag{padding:10px 24px;font-weight:700;font-size:1rem;border:3px solid var(--black);box-shadow:var(--shadow);}
+.tg-pink  {background:var(--pink);  color:var(--white);}
+.tg-green {background:var(--green); color:var(--black);}
+.tg-blue  {background:var(--blue);  color:var(--white);}
+.h-btns{display:flex;gap:16px;margin-top:46px;flex-wrap:wrap;justify-content:center;position:relative;animation:fadeUp .5s .35s ease both;}
+.h-quick{
+  position:relative;margin-top:48px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;
+  animation:fadeUp .5s .46s ease both;
+}
+.h-quick a{padding:10px 18px;font-size:0.8rem;}
+
+/* ═══ TENTANG ═══ */
+#page-tentang{background:#f5f5f5;}
+.about-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:60px;align-items:center;max-width:1100px;margin:0 auto;}
+.aph-wrap{position:relative;padding-bottom:16px;padding-right:16px;max-width:320px;width:100%;margin:0 auto;}
+.aph{
+  width:100%;aspect-ratio:1;background:linear-gradient(135deg,#ddd,#bbb);
+  border:4px solid var(--black);box-shadow:var(--shadow-lg);transform:rotate(-3deg);
+  display:flex;align-items:center;justify-content:center;font-size:6rem;position:relative;z-index:1;
+  overflow:hidden;
+}
+.aph img{
+  width:100%;height:100%;object-fit:cover;object-position:center top;display:block;
+}
+.aph-back{
+  position:absolute;bottom:0;right:0;width:100%;height:100%;
+  background:var(--yellow);border:4px solid var(--black);transform:rotate(-3deg);
+}
+.a-heading{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;line-height:1.25;margin-bottom:16px;}
+.hl-b{color:var(--blue);}
+.hl-g{background:var(--green);padding:2px 8px;border:2px solid var(--black);display:inline;}
+.a-bio{font-size:0.97rem;line-height:1.75;color:#333;border-left:5px solid var(--pink);padding-left:16px;margin:18px 0;}
+.info-cards{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;}
+.ic{display:flex;align-items:center;gap:10px;border:var(--border);padding:10px 16px;background:var(--white);box-shadow:var(--shadow);font-weight:600;font-size:0.86rem;}
+
+/* ═══ PROYEK ═══ */
+#page-proyek{background:var(--blue);}
+.proj-hd{max-width:1100px;margin:0 auto 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
+.proj-arrows{display:flex;gap:10px;}
+.pa{width:50px;height:50px;border:3px solid var(--black);background:var(--yellow);font-size:1.3rem;cursor:pointer;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s;}
+.pa:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 #0a0a0a;}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1100px;margin:0 auto;}
+.pc{background:var(--white);border:3px solid var(--black);box-shadow:var(--shadow-lg);overflow:hidden;transition:transform .2s,box-shadow .2s;}
+.pc:hover{transform:translate(-4px,-4px);box-shadow:12px 12px 0 #0a0a0a;}
+.pc-img{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:3.2rem;border-bottom:3px solid var(--black);}
+.pc-body{padding:16px;}
+.pc-name{font-family:'Bebas Neue',cursive;font-size:1.4rem;letter-spacing:2px;margin-bottom:6px;}
+.pc-desc{font-size:0.86rem;color:#444;line-height:1.55;margin-bottom:12px;}
+.pc-stack{display:flex;gap:6px;flex-wrap:wrap;}
+.sb{font-size:0.7rem;font-weight:700;padding:3px 10px;border:2px solid var(--black);background:var(--yellow);}
+
+/* ═══ KEAHLIAN ═══ */
+#page-keahlian{background:#f5f5f5;}
+.sk-wrap{overflow:hidden;border-top:3px solid var(--black);border-bottom:3px solid var(--black);}
+.sk-track{display:flex;width:max-content;animation:scrollSk 22s linear infinite;}
+.sk-track:hover{animation-play-state:paused;}
+@keyframes scrollSk{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.skc{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  width:150px;height:120px;border-right:3px solid var(--black);
+  background:var(--white);font-weight:700;font-size:0.8rem;letter-spacing:1px;gap:8px;
+  transition:background .2s;flex-shrink:0;
+}
+.skc:hover{background:var(--yellow);}
+.skc.sr{background:var(--pink);color:var(--white);}
+.skc.sb2{background:var(--blue);color:var(--white);}
+.ski{font-size:1.9rem;}
+.sk-grid{max-width:1100px;margin:52px auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.skg-item{
+  background:var(--white);border:3px solid var(--black);padding:18px;text-align:center;
+  box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s;
+}
+.skg-item:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 #0a0a0a;}
+.skg-item .si-ico{font-size:2.3rem;margin-bottom:8px;}
+.skg-item .si-nm{font-weight:700;font-size:0.85rem;letter-spacing:1px;}
+
+/* ═══ SERTIFIKAT ═══ */
+#page-sertifikat{background:#f5f5f5;}
+.cert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1100px;margin:0 auto;}
+.cc{background:var(--white);border:3px solid var(--black);box-shadow:var(--shadow-lg);overflow:hidden;transition:transform .2s,box-shadow .2s;}
+.cc:hover{transform:translate(-4px,-4px);box-shadow:12px 12px 0 #0a0a0a;}
+.cc-img{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:3.2rem;border-bottom:3px solid var(--black);position:relative;}
+.cc-badge{position:absolute;top:10px;right:10px;background:var(--yellow);border:2px solid var(--black);padding:3px 10px;font-size:0.68rem;font-weight:700;}
+.cc-body{padding:16px;}
+.cc-title{font-weight:700;font-size:0.92rem;margin-bottom:4px;}
+.cc-issuer{font-size:0.8rem;color:#666;margin-bottom:14px;}
+.cc-btn{display:block;text-align:center;padding:10px;font-weight:700;font-size:0.86rem;border:var(--border);box-shadow:var(--shadow);cursor:pointer;text-decoration:none;transition:transform .15s,box-shadow .15s;}
+.cc-btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 #0a0a0a;}
+
+/* ═══ TESTIMONIAL ═══ */
+#page-testimonial{background:var(--pink);}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1100px;margin:0 auto;}
+.tc{background:var(--white);border:3px solid var(--black);box-shadow:var(--shadow-lg);padding:24px;}
+.stars{color:#FFD000;font-size:1.15rem;}
+.rating{font-weight:700;margin-left:5px;}
+.tq{font-size:0.9rem;line-height:1.65;font-style:italic;color:#222;margin:14px 0;border-left:5px solid var(--yellow);padding-left:14px;}
+.tc:nth-child(2) .tq{border-left-color:var(--blue);}
+.tc:nth-child(3) .tq{border-left-color:var(--green);}
+.tdiv{border:none;border-top:2px solid #eee;margin:14px 0;}
+.tperson{display:flex;align-items:center;gap:10px;}
+.tav{width:44px;height:44px;border-radius:4px;border:2px solid var(--black);background:#ddd;display:flex;align-items:center;justify-content:center;font-size:1.3rem;}
+.tname{font-weight:700;font-size:0.9rem;}
+.trole{font-size:0.76rem;color:#666;}
+
+/* ═══ GITHUB ═══ */
+#page-github{background:#f5f5f5;}
+.gh-inner{max-width:1100px;margin:0 auto;}
+.contrib-box{border:3px solid var(--black);background:var(--white);padding:22px;box-shadow:var(--shadow-lg);margin-bottom:22px;}
+.contrib-grid{display:grid;grid-template-columns:repeat(52,1fr);gap:3px;}
+.contrib-cell{aspect-ratio:1;border-radius:2px;}
+.c0{background:#ebedf0;}.c1{background:#9be9a8;}.c2{background:#40c463;}.c3{background:#30a14e;}.c4{background:#216e39;}
+.cl{display:flex;align-items:center;gap:6px;justify-content:center;margin-top:10px;font-size:0.76rem;font-weight:600;}
+.lc{width:12px;height:12px;border-radius:2px;}
+.gh-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.gc{padding:20px;border:3px solid var(--black);box-shadow:var(--shadow);}
+.gc-w{background:var(--white);}.gc-y{background:var(--yellow);}.gc-g{background:var(--green);}.gc-p{background:var(--purple);color:var(--white);}
+.gc-label{font-weight:700;font-size:0.8rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+.gc-num{font-family:'Bebas Neue',cursive;font-size:3rem;line-height:1;color:var(--blue);}
+.gc-y .gc-num,.gc-g .gc-num{color:var(--black);}.gc-p .gc-num{color:var(--white);}
+.gc-sub{font-size:0.72rem;opacity:.7;font-weight:600;text-transform:uppercase;margin-top:4px;}
+
+/* ═══ KONTAK ═══ */
+#page-kontak{background:var(--green);}
+.kgrid{display:grid;grid-template-columns:1fr 1.4fr;gap:38px;max-width:1100px;margin:0 auto;}
+.kit{font-family:'Bebas Neue',cursive;font-size:1.7rem;letter-spacing:2px;margin-bottom:18px;}
+.kitem{display:flex;align-items:center;gap:12px;border:var(--border);background:var(--white);padding:14px;margin-bottom:12px;box-shadow:var(--shadow);}
+.kico{width:40px;height:40px;border:2px solid var(--black);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.ip{background:var(--pink);color:var(--white);}.ib{background:var(--blue);color:var(--white);}.iy{background:var(--yellow);color:var(--black);}
+.klabel{font-weight:700;font-size:0.82rem;}.kval{font-size:0.88rem;color:#333;}
+.ftitle{font-family:'Bebas Neue',cursive;font-size:1.7rem;letter-spacing:2px;margin-bottom:18px;}
+.fg{margin-bottom:11px;}
+.fi{width:100%;padding:12px 14px;border:3px solid var(--black);background:var(--white);font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;transition:box-shadow .15s;}
+.fi:focus{box-shadow:4px 4px 0 var(--black);}
+textarea.fi{height:105px;resize:vertical;}
+.fsub{width:100%;padding:14px;font-family:'Bebas Neue',cursive;font-size:1.15rem;letter-spacing:2px;cursor:pointer;background:var(--black);color:var(--yellow);border:3px solid var(--black);box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s;}
+.fsub:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--black);}
+
+/* FOOTER */
+footer{background:var(--black);color:var(--white);text-align:center;padding:18px 40px;font-size:0.86rem;}
+footer span{color:var(--yellow);font-weight:700;}
+
+
+/* IMG fallback - tampil abu2 kalau gambar belum ada */
+.aph img, .pc-img img, .cc-img img {
+  background:#ccc;
+}
+img[src=""] , img:not([src]) {
+  visibility:hidden;
+}
+
+/* ANIMATION */
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:translateY(0);}}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .proj-grid,.cert-grid,.testi-grid,.gh-cards{grid-template-columns:1fr;}
+  .about-grid,.kgrid{grid-template-columns:1fr;}
+  .sk-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:720px){
+  nav{padding:0 14px;}
+  .logo{font-size:1.35rem;margin-right:10px;}
+  .nav-links li a{padding:5px 8px;font-size:0.76rem;}
+  .pg{padding:48px 16px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav>
+  <a class="logo" onclick="nav('home')">MUHAMMAD <span>FIKRI</span></a>
+  <div class="nav-scroll">
+    <ul class="nav-links">
+      <li><a onclick="nav('home')"        class="active" data-page="home">Home</a></li>
+      <li><a onclick="nav('tentang')"               data-page="tentang">Tentang</a></li>
+      <li><a onclick="nav('proyek')"                data-page="proyek">Proyek</a></li>
+      <li><a onclick="nav('keahlian')"              data-page="keahlian">Keahlian</a></li>
+      <li><a onclick="nav('sertifikat')"            data-page="sertifikat">Sertifikat</a></li>
+      <li><a onclick="nav('testimonial')"           data-page="testimonial">Testimonial</a></li>
+      <li><a onclick="nav('github')"                data-page="github">Github</a></li>
+      <li><a onclick="nav('kontak')"                data-page="kontak">Kontak</a></li>
+    </ul>
+  </div>
+  <div class="nav-right"><button class="lang-btn">ID</button></div>
+</nav>
+
+<!-- ═══ PAGE: HOME ═══ -->
+<div id="page-home" class="page active">
+  <div style="background:var(--yellow);min-height:calc(100vh - 68px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 20px;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,0,0,.05) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,0,0,.05) 40px);"></div>
+    <p class="h-hello">HELLO, I'M</p>
+    <div class="h-name-box"><h1 class="h-name">MUHAMMAD FIKRI</h1></div>
+    <div class="h-tags">
+      <span class="h-tag tg-pink">Web Developer</span>
+      <span class="h-tag tg-green">Gamers</span>
+      <span class="h-tag tg-blue">Otakku</span>
+    </div>
+    <div class="h-btns">
+      <a onclick="nav('proyek')" class="btn btn-blue" style="cursor:pointer;">VIEW MY WORK</a>
+      <a href="https://wa.me/6285248867449" class="btn btn-green">💬 CHAT ON WHATSAPP</a>
+    </div>
+    <div class="h-quick">
+      <a onclick="nav('tentang')"    class="btn btn-white" style="cursor:pointer;">Tentang Saya →</a>
+      <a onclick="nav('proyek')"     class="btn btn-white" style="cursor:pointer;">Proyek →</a>
+      <a onclick="nav('keahlian')"   class="btn btn-white" style="cursor:pointer;">Keahlian →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE: TENTANG ═══ -->
+<div id="page-tentang" class="page">
+  <div class="pg" style="background:#f5f5f5;">
+    <div class="stw"><h2 class="st t-pink">TENTANG SAYA</h2></div>
+    <div class="about-grid">
+      <div class="aph-wrap">
+        <div class="aph" style="padding:0;overflow:hidden;">
+          <img src="foto-profil.jpg" alt="Muhammad Fikri" style="width:100%;height:100%;object-fit:cover;border:none;display:block;"/>
+        </div>
+        <div class="aph-back"></div>
+      </div>
+      <div>
+        <h3 class="a-heading">SAYA <span class="hl-b">MUHAMMAD FIKRI</span>, <span class="hl-g">D3 INFORMATIC ENGINEERING GRADUATE</span></h3>
+        <p class="a-bio">Sebagai lulusan baru dari Politeknik Negeri Banjarmasin (D3 Teknik Informatika), saya telah mengerjakan berbagai proyek selama masa studi dan melalui pekerjaan freelance — mulai dari website sederhana hingga aplikasi kompleks. Saya senang menggabungkan keahlian teknis dengan pemecahan masalah kreatif untuk menghasilkan solusi yang efektif dan menarik.</p>
+        <div class="info-cards">
+          <div class="ic">📍 Banjarmasin, Indonesia</div>
+          <div class="ic">✉️ fikri772277@gmail.com</div>
+        </div>
+        <a onclick="nav('kontak')" class="btn btn-white" style="cursor:pointer;">✈ HIRE ME</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE: PROYEK ═══ -->
+<div id="page-proyek" class="page">
+  <div class="pg" style="background:var(--blue);">
+    <div class="proj-hd">
+      <h2 class="st t-yellow" style="margin-bottom:0;">MY PROJECTS</h2>
+      <div class="proj-arrows">
+        <button class="pa">&#8249;</button>
+        <button class="pa">&#8250;</button>
+      </div>
+    </div>
+    <div class="proj-grid">
+      <div class="pc">
+        <div class="pc-img" style="background:#1a1a2e;padding:0;overflow:hidden;"><img src="proyek-gilmar.jpg" alt="Gilmar Idea" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
+        <div class="pc-body">
+          <h3 class="pc-name">GILMAR IDEA</h3>
+          <p class="pc-desc">Website berita digital yang menyediakan informasi terkini untuk mahasiswa STIE Pancasetia.</p>
+          <div class="pc-stack"><span class="sb">⚡ Laravel</span><span class="sb">🗄 MySQL</span></div>
+        </div>
+      </div>
+      <div class="pc">
+        <div class="pc-img" style="background:#0d1117;padding:0;overflow:hidden;"><img src="proyek-donghua.jpg" alt="DonghuaWatch" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
+        <div class="pc-body">
+          <h3 class="pc-name">DONGHUAWATCH</h3>
+          <p class="pc-desc">Situs streaming donghua cepat dan responsif dengan subtitle Bahasa Indonesia.</p>
+          <div class="pc-stack"><span class="sb">⚛ React</span><span class="sb">CSS</span><span class="sb">⚡ Laravel</span></div>
+        </div>
+      </div>
+      <div class="pc">
+        <div class="pc-img" style="background:#b71c1c;padding:0;overflow:hidden;"><img src="proyek-siperu.jpg" alt="SIPERU" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
+        <div class="pc-body">
+          <h3 class="pc-name">SIPERU</h3>
+          <p class="pc-desc">Sistem Informasi Peminjaman Ruangan untuk manajemen reservasi fasilitas kampus otomatis.</p>
+          <div class="pc-stack"><span class="sb">⚡ Laravel</span><span class="sb">🗄 MySQL</span></div>
+        </div>
+      </div>
+      <div class="pc">
+        <div class="pc-img" style="background:#1b5e20;padding:0;overflow:hidden;"><img src="proyek-toko.jpg" alt="Toko Online" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
+        <div class="pc-body">
+          <h3 class="pc-name">TOKO ONLINE</h3>
+          <p class="pc-desc">Platform e-commerce dengan fitur keranjang belanja, pembayaran, dan manajemen produk.</p>
+          <div class="pc-stack"><span class="sb">⚡ Laravel</span><span class="sb">🗄 MySQL</span><span class="sb">Bootstrap</span></div>
+        </div>
+      </div>
+      <div class="pc">
+        <div class="pc-img" style="background:#311b92;padding:0;overflow:hidden;"><img src="proyek-dashboard.jpg" alt="Dashboard Analitik" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
+        <div class="pc-body">
+          <h3 class="pc-name">DASHBOARD ANALITIK</h3>
+          <p class="pc-desc">Dashboard visualisasi data real-time untuk pemantauan performa bisnis dan analitik.</p>
+          <div class="pc-stack"><span class="sb">⚛ React</span><span class="sb">Chart.js</span><span class="sb">Node.js</span></div>
+        </div>
+      </div>
+      <div class="pc">
+        <div class="pc-img" style="background:#004d40;padding:0;overflow:hidden;"><img src="proyek-chatbot.jpg" alt="AI Chatbot" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
+        <div class="pc-body">
+          <h3 class="pc-name">AI CHATBOT</h3>
+          <p class="pc-desc">Chatbot layanan pelanggan berbasis AI yang merevolusi cara bisnis berinteraksi dengan pengguna.</p>
+          <div class="pc-stack"><span class="sb">Python</span><span class="sb">Flask</span><span class="sb">NLP</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE: KEAHLIAN ═══ -->
+<div id="page-keahlian" class="page">
+  <div class="pg" style="background:#f5f5f5;">
+    <div class="stw"><h2 class="st t-green">KEAHLIAN</h2></div>
+    <div class="sk-wrap">
+      <div class="sk-track">
+        <div class="skc"><span class="ski">🌪</span>TAILWIND</div>
+        <div class="skc sb2"><span class="ski">🅱</span>BOOTSTRAP</div>
+        <div class="skc"><span class="ski">🐘</span>PHP</div>
+        <div class="skc sr"><span class="ski">🔴</span>LARAVEL</div>
+        <div class="skc"><span class="ski">🗄</span>MYSQL</div>
+        <div class="skc"><span class="ski">📊</span>ANALYTICS</div>
+        <div class="skc"><span class="ski">🔵</span>WORDPRESS</div>
+        <div class="skc"><span class="ski">🔌</span>CISCO</div>
+        <div class="skc"><span class="ski">🎨</span>FIGMA</div>
+        <div class="skc"><span class="ski">⚛</span>REACT</div>
+        <div class="skc"><span class="ski">🟨</span>JAVASCRIPT</div>
+        <div class="skc"><span class="ski">🟠</span>HTML/CSS</div>
+        <div class="skc"><span class="ski">🐙</span>GIT</div>
+        <div class="skc"><span class="ski">🌪</span>TAILWIND</div>
+        <div class="skc sb2"><span class="ski">🅱</span>BOOTSTRAP</div>
+        <div class="skc"><span class="ski">🐘</span>PHP</div>
+        <div class="skc sr"><span class="ski">🔴</span>LARAVEL</div>
+        <div class="skc"><span class="ski">🗄</span>MYSQL</div>
+        <div class="skc"><span class="ski">📊</span>ANALYTICS</div>
+        <div class="skc"><span class="ski">🔵</span>WORDPRESS</div>
+        <div class="skc"><span class="ski">🔌</span>CISCO</div>
+        <div class="skc"><span class="ski">🎨</span>FIGMA</div>
+        <div class="skc"><span class="ski">⚛</span>REACT</div>
+        <div class="skc"><span class="ski">🟨</span>JAVASCRIPT</div>
+        <div class="skc"><span class="ski">🟠</span>HTML/CSS</div>
+        <div class="skc"><span class="ski">🐙</span>GIT</div>
+      </div>
+    </div>
+    <div class="sk-grid">
+      <div class="skg-item" style="background:var(--yellow);"><div class="si-ico">🌪</div><div class="si-nm">TAILWIND CSS</div></div>
+      <div class="skg-item"><div class="si-ico">🅱</div><div class="si-nm">BOOTSTRAP</div></div>
+      <div class="skg-item"><div class="si-ico">🐘</div><div class="si-nm">PHP</div></div>
+      <div class="skg-item" style="background:var(--pink);color:var(--white);"><div class="si-ico">🔴</div><div class="si-nm">LARAVEL</div></div>
+      <div class="skg-item"><div class="si-ico">🗄</div><div class="si-nm">MYSQL</div></div>
+      <div class="skg-item"><div class="si-ico">📊</div><div class="si-nm">ANALYTICS</div></div>
+      <div class="skg-item"><div class="si-ico">🔵</div><div class="si-nm">WORDPRESS</div></div>
+      <div class="skg-item"><div class="si-ico">🔌</div><div class="si-nm">CISCO</div></div>
+      <div class="skg-item"><div class="si-ico">🎨</div><div class="si-nm">FIGMA</div></div>
+      <div class="skg-item" style="background:var(--blue);color:var(--white);"><div class="si-ico">⚛</div><div class="si-nm">REACT</div></div>
+      <div class="skg-item" style="background:var(--yellow);"><div class="si-ico">🟨</div><div class="si-nm">JAVASCRIPT</div></div>
+      <div class="skg-item"><div class="si-ico">🟠</div><div class="si-nm">HTML / CSS</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE: SERTIFIKAT ═══ -->
+<div id="page-sertifikat" class="page">
+  <div class="pg" style="background:#f5f5f5;">
+    <div class="stw"><h2 class="st t-yellow">SERTIFIKAT</h2></div>
+    <div class="cert-grid">
+      <div class="cc">
+        <div class="cc-img" style="background:linear-gradient(135deg,#1565c0,#0d47a1);padding:0;overflow:hidden;position:relative;">
+          <img src="sertifikat-ccna.jpg" alt="Sertifikat CCNA" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+          <span class="cc-badge">COMPLETION</span>
+        </div>
+        <div class="cc-body">
+          <p class="cc-title">Learn CCNA 200-301 Network Fundamentals Online</p>
+          <p class="cc-issuer">SimpliLearn SkillUP — 28 May 2025</p>
+          <a href="#" class="cc-btn" style="background:var(--blue);color:var(--white);">DETAILS</a>
+        </div>
+      </div>
+      <div class="cc">
+        <div class="cc-img" style="background:linear-gradient(135deg,#1a237e,#283593);padding:0;overflow:hidden;position:relative;">
+          <img src="sertifikat-js-dasar.jpg" alt="Sertifikat JavaScript Dasar" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+          <span class="cc-badge">KOMPETENSI</span>
+        </div>
+        <div class="cc-body">
+          <p class="cc-title">Belajar Dasar Pemrograman JavaScript</p>
+          <p class="cc-issuer">Dicoding — 29 Mei 2025</p>
+          <a href="#" class="cc-btn" style="background:var(--purple);color:var(--white);">DETAILS</a>
+        </div>
+      </div>
+      <div class="cc">
+        <div class="cc-img" style="background:linear-gradient(135deg,#1a237e,#283593);padding:0;overflow:hidden;position:relative;">
+          <img src="sertifikat-backend.jpg" alt="Sertifikat Back-End JavaScript" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+          <span class="cc-badge">KOMPETENSI</span>
+        </div>
+        <div class="cc-body">
+          <p class="cc-title">Belajar Back-End Pemula dengan JavaScript</p>
+          <p class="cc-issuer">Dicoding — 29 Mei 2025</p>
+          <a href="#" class="cc-btn" style="background:var(--green);color:var(--black);">DETAILS</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE: TESTIMONIAL ═══ -->
+<div id="page-testimonial" class="page">
+  <div class="pg" style="background:var(--pink);">
+    <div class="stw"><h2 class="st t-white">WHAT CLIENTS SAY</h2></div>
+    <div class="testi-grid">
+      <div class="tc">
+        <div><span class="stars">⭐⭐⭐⭐⭐</span><span class="rating">5.0</span></div>
+        <p class="tq">"Saya sangat puas dengan website portofolio yang Fikri buat — tampilannya bagus, berjalan mulus, dan mudah digunakan di semua perangkat."</p>
+        <hr class="tdiv"/>
+        <div class="tperson"><div class="tav">👩</div><div><p class="tname">Nik Nurlin Nadhira</p><p class="trole">College Student of UiTM Selangor</p></div></div>
+      </div>
+      <div class="tc">
+        <div><span class="stars">⭐⭐⭐⭐⭐</span><span class="rating">5.0</span></div>
+        <p class="tq">"Chatbot AI yang Fikri kembangkan telah merevolusi layanan pelanggan kami. Pemahamannya tentang teknologi frontend dan backend sangat mengesankan."</p>
+        <hr class="tdiv"/>
+        <div class="tperson"><div class="tav">👨</div><div><p class="tname">David Kim</p><p class="trole">Founder, AI Solutions</p></div></div>
+      </div>
+      <div class="tc">
+        <div><span class="stars">⭐⭐⭐⭐⭐</span><span class="rating">5.0</span></div>
+        <p class="tq">"Pekerjaan Fikri pada dashboard keuangan kami sangat luar biasa. Visualisasi data dan pembaruan real-time berjalan sempurna. Developer profesional dan andal."</p>
+        <hr class="tdiv"/>
+        <div class="tperson"><div class="tav">👩‍💼</div><div><p class="tname">Lisa Thompson</p><p class="trole">Director, FinTech Pro</p></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE: GITHUB ═══ -->
+<div id="page-github" class="page">
+  <div class="pg" style="background:#f5f5f5;">
+    <div class="stw"><h2 class="st t-blue">GITHUB STATISTICS</h2></div>
+    <div class="gh-inner">
+      <div class="contrib-box">
+        <div class="contrib-grid" id="contribGrid"></div>
+        <div class="cl">
+          <span>LESS</span>
+          <div class="lc c0"></div><div class="lc c1"></div>
+          <div class="lc c2"></div><div class="lc c3"></div><div class="lc c4"></div>
+          <span>MORE</span>
+        </div>
+      </div>
+      <div class="gh-cards">
+        <div class="gc gc-w"><p class="gc-label">⑂ Repositories</p><p class="gc-num">29</p><p class="gc-sub">Public Repositories</p></div>
+        <div class="gc gc-y"><p class="gc-label">★ Stars</p><p class="gc-num">5</p><p class="gc-sub">Received on Projects</p></div>
+        <div class="gc gc-g"><p class="gc-label">⊙ Contributions</p><p class="gc-num">15</p><p class="gc-sub">Last Year</p></div>
+        <div class="gc gc-p"><p class="gc-label">👥 Followers</p><p class="gc-num">10</p><p class="gc-sub">GitHub Followers</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE: KONTAK ═══ -->
+<div id="page-kontak" class="page">
+  <div class="pg" style="background:var(--green);">
+    <div class="stw"><h2 class="st t-white">KONTAK</h2></div>
+    <div class="kgrid">
+      <div>
+        <h3 class="kit">INFORMASI KONTAK</h3>
+        <div class="kitem"><div class="kico ip">📍</div><div><p class="klabel">LOKASI</p><p class="kval">Banjarmasin, Indonesia</p></div></div>
+        <div class="kitem"><div class="kico ib">✉️</div><div><p class="klabel">EMAIL</p><p class="kval">fikri772277@gmail.com</p></div></div>
+        <div class="kitem"><div class="kico iy">📞</div><div><p class="klabel">TELEPON</p><p class="kval">+62 852 4886 7449</p></div></div>
+      </div>
+      <div>
+        <h3 class="ftitle">KIRIM PESAN</h3>
+        <div class="fg"><input type="text"  class="fi" placeholder="NAMA ANDA"/></div>
+        <div class="fg"><input type="email" class="fi" placeholder="EMAIL ANDA"/></div>
+        <div class="fg"><input type="text"  class="fi" placeholder="SUBJEK"/></div>
+        <div class="fg"><textarea class="fi" placeholder="PESAN ANDA"></textarea></div>
+        <button class="fsub">KIRIM PESAN →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 <span>Muhammad Fikri</span> — Web Developer · Banjarmasin, Indonesia</p>
+</footer>
+
+<script>
+function nav(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-links li a').forEach(a => {
+    a.classList.remove('active');
+    if(a.getAttribute('data-page') === id) a.classList.add('active');
+  });
+  window.scrollTo(0, 0);
+}
+
+
+// AUTOPLAY MUSIC
+const music = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+let musicStarted = false;
+let isPlaying = false;
+
+function startMusic() {
+  if (!musicStarted) {
+    music.volume = 0.4;
+    music.play().then(() => {
+      musicStarted = true;
+      isPlaying = true;
+      musicBtn.textContent = '🔊';
+    }).catch(() => {});
+  }
+}
+
+function toggleMusic() {
+  if (!musicStarted) {
+    startMusic();
+  } else if (isPlaying) {
+    music.pause();
+    isPlaying = false;
+    musicBtn.textContent = '🔇';
+  } else {
+    music.play();
+    isPlaying = true;
+    musicBtn.textContent = '🔊';
+  }
+}
+
+// Auto start saat user pertama kali sentuh/klik layar
+document.addEventListener('click', startMusic, { once: true });
+document.addEventListener('touchstart', startMusic, { once: true });
+
+// GitHub contribution grid
+const grid = document.getElementById('contribGrid');
+const lvl = [0,1,1,2,2,3,4];
+for(let i=0; i<52*7; i++){
+  const c = document.createElement('div');
+  c.className = 'contrib-cell c' + lvl[Math.floor(Math.random()*lvl.length)];
+  grid.appendChild(c);
+}
+</script>
+
+<!-- AUTOPLAY MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="musik.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Music Control Button -->
+<button id="musicBtn" onclick="toggleMusic()" title="Play/Pause Music" style="
+  position:fixed;bottom:24px;right:24px;z-index:99999;
+  width:52px;height:52px;border-radius:50%;
+  background:var(--black);color:var(--yellow);
+  border:3px solid var(--yellow);
+  font-size:1.3rem;cursor:pointer;
+  box-shadow:4px 4px 0 var(--yellow);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .15s,box-shadow .15s;
+">🎵</button>
+</body>
+</html>
