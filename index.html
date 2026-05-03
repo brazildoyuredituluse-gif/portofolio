@@ -601,52 +601,6 @@ function nav(id) {
 }
 
 
-// AUTOPLAY MUSIC
-const music = document.getElementById('bgMusic');
-const musicBtn = document.getElementById('musicBtn');
-let isPlaying = false;
-
-function tryAutoplay() {
-  music.volume = 0.4;
-  music.play().then(() => {
-    isPlaying = true;
-    musicBtn.textContent = '🔊';
-  }).catch(() => {
-    // Autoplay diblokir browser, tunggu interaksi user
-    musicBtn.textContent = '🎵';
-  });
-}
-
-function toggleMusic() {
-  if (isPlaying) {
-    music.pause();
-    isPlaying = false;
-    musicBtn.textContent = '🔇';
-  } else {
-    music.play().then(() => {
-      isPlaying = true;
-      musicBtn.textContent = '🔊';
-    });
-  }
-}
-
-// Coba autoplay langsung
-tryAutoplay();
-
-// Fallback: play saat user pertama sentuh/klik
-function onFirstInteraction() {
-  if (!isPlaying) {
-    music.play().then(() => {
-      isPlaying = true;
-      musicBtn.textContent = '🔊';
-    });
-  }
-  document.removeEventListener('click', onFirstInteraction);
-  document.removeEventListener('touchstart', onFirstInteraction);
-}
-document.addEventListener('click', onFirstInteraction);
-document.addEventListener('touchstart', onFirstInteraction);
-
 // GitHub contribution grid
 const grid = document.getElementById('contribGrid');
 const lvl = [0,1,1,2,2,3,4];
@@ -673,5 +627,40 @@ for(let i=0; i<52*7; i++){
   display:flex;align-items:center;justify-content:center;
   transition:transform .15s,box-shadow .15s;
 ">🎵</button>
+
+<script>
+// MUSIC - dijalankan setelah audio element ada
+var music = document.getElementById('bgMusic');
+var musicBtn = document.getElementById('musicBtn');
+var isPlaying = false;
+
+function toggleMusic() {
+  if (isPlaying) {
+    music.pause();
+    isPlaying = false;
+    musicBtn.textContent = '🔇';
+  } else {
+    music.play().then(function() {
+      isPlaying = true;
+      musicBtn.textContent = '🔊';
+    }).catch(function(e){ console.log('play error:', e); });
+  }
+}
+
+// Fallback: play otomatis saat user pertama sentuh/klik
+function onFirstInteraction() {
+  if (!isPlaying) {
+    music.volume = 0.4;
+    music.play().then(function() {
+      isPlaying = true;
+      musicBtn.textContent = '🔊';
+    }).catch(function(e){ console.log('autoplay error:', e); });
+  }
+  document.removeEventListener('click', onFirstInteraction);
+  document.removeEventListener('touchstart', onFirstInteraction);
+}
+document.addEventListener('click', onFirstInteraction);
+document.addEventListener('touchstart', onFirstInteraction);
+</script>
 </body>
 </html>
