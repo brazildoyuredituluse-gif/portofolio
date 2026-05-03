@@ -604,37 +604,48 @@ function nav(id) {
 // AUTOPLAY MUSIC
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
-let musicStarted = false;
 let isPlaying = false;
 
-function startMusic() {
-  if (!musicStarted) {
-    music.volume = 0.4;
-    music.play().then(() => {
-      musicStarted = true;
-      isPlaying = true;
-      musicBtn.textContent = '🔊';
-    }).catch(() => {});
-  }
+function tryAutoplay() {
+  music.volume = 0.4;
+  music.play().then(() => {
+    isPlaying = true;
+    musicBtn.textContent = '🔊';
+  }).catch(() => {
+    // Autoplay diblokir browser, tunggu interaksi user
+    musicBtn.textContent = '🎵';
+  });
 }
 
 function toggleMusic() {
-  if (!musicStarted) {
-    startMusic();
-  } else if (isPlaying) {
+  if (isPlaying) {
     music.pause();
     isPlaying = false;
     musicBtn.textContent = '🔇';
   } else {
-    music.play();
-    isPlaying = true;
-    musicBtn.textContent = '🔊';
+    music.play().then(() => {
+      isPlaying = true;
+      musicBtn.textContent = '🔊';
+    });
   }
 }
 
-// Auto start saat user pertama kali sentuh/klik layar
-document.addEventListener('click', startMusic, { once: true });
-document.addEventListener('touchstart', startMusic, { once: true });
+// Coba autoplay langsung
+tryAutoplay();
+
+// Fallback: play saat user pertama sentuh/klik
+function onFirstInteraction() {
+  if (!isPlaying) {
+    music.play().then(() => {
+      isPlaying = true;
+      musicBtn.textContent = '🔊';
+    });
+  }
+  document.removeEventListener('click', onFirstInteraction);
+  document.removeEventListener('touchstart', onFirstInteraction);
+}
+document.addEventListener('click', onFirstInteraction);
+document.addEventListener('touchstart', onFirstInteraction);
 
 // GitHub contribution grid
 const grid = document.getElementById('contribGrid');
